@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Encuesta Athletify · Atletas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1C1C1A;--paper:#F3F3EF;--card:#FFFFFF;--lime:#E4F04A;--teal:#3FB6CF;--violet:#A879EE;--muted:#6B6B64;--line:#DEDED7;--track:#EAEAE3;--onlime:#1C1C1A;
+ --display:"Montserrat","Arial Black",Arial,sans-serif;--body:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#F1F1EC;--paper:#171716;--card:#21211F;--muted:#A3A39A;--line:#34342F;--track:#2E2E2A;color-scheme:dark}}
+:root[data-theme="dark"]{--ink:#F1F1EC;--paper:#171716;--card:#21211F;--muted:#A3A39A;--line:#34342F;--track:#2E2E2A;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header.hero{background:#1C1C1A;color:#F3F3EF;padding:44px 0 36px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:900;font-size:15px;letter-spacing:.08em;text-transform:uppercase}
+.brand i{display:inline-block;width:14px;height:14px;background:var(--lime);border-radius:3px}
+.hero h1{font-family:var(--display);font-weight:900;font-size:clamp(32px,5.6vw,64px);line-height:1.02;margin:22px 0 14px;max-width:15ch;letter-spacing:.02em;text-transform:uppercase}
+.hero h1 .n{background:var(--lime);color:#1C1C1A;padding:0 .12em;border-radius:4px}
+.hero p.sub{color:#BDBDB4;max-width:60ch;margin:0 0 26px}
+.seg{display:inline-flex;flex-wrap:wrap;gap:6px;background:#2A2A27;padding:6px;border-radius:14px}
+.seg button{font:600 14px var(--body);color:#E6E6DF;background:transparent;border:0;border-radius:9px;padding:10px 16px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--lime);color:#1C1C1A}
+.seg button:focus-visible,.theme:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.seg-note{color:#9A9A92;font-size:13px;margin-top:10px}
+.verdicts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:-22px;position:relative}
+.v{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px}
+.v:first-child{background:var(--lime);border-color:var(--lime);color:var(--onlime)}
+.v b{display:block;font-family:var(--display);font-weight:900;font-size:clamp(30px,4vw,44px);line-height:1}
+.v span{display:block;margin-top:8px;font-size:14px;line-height:1.35}
+.v:not(:first-child) span{color:var(--muted)}
+section.ch{margin:56px 0 0}
+.tag{display:inline-block;font-family:var(--display);font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:16px;padding:8px 18px;border-radius:9px;border:2px solid #1C1C1A;background:var(--lime);color:#1C1C1A}
+.tag.dark{background:#1C1C1A;color:#F3F3EF;border-color:#1C1C1A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tag.dark{border-color:#55554E}}
+:root[data-theme="dark"] .tag.dark{border-color:#55554E}
+.ch h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.6vw,28px);line-height:1.2;margin:14px 0 6px;max-width:34ch}
+.ch .lead{color:var(--muted);margin:0 0 20px;max-width:70ch}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g21{grid-template-columns:2fr 1fr}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
+.card h3{font-size:15px;font-weight:700;margin:0 0 4px}
+.card .q{color:var(--muted);font-size:13px;margin:0 0 16px}
+.bars{display:flex;flex-direction:column;gap:11px}
+.bar .lab{display:flex;justify-content:space-between;gap:10px;font-size:14px;margin-bottom:5px}
+.bar .lab em{font-style:normal;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar .lab em small{font-weight:500;color:var(--muted);margin-left:6px}
+.track{height:10px;background:var(--track);border-radius:6px;overflow:hidden}
+.fill{height:100%;border-radius:6px;background:var(--ink);transition:width .5s ease}
+.bar.other .fill{background:var(--muted);opacity:.45}
+.bar.hi .fill{background:var(--lime)}
+@media (prefers-color-scheme:light){.bar.other .fill{background:var(--muted);opacity:.45}
+.bar.hi .fill{box-shadow:inset 0 0 0 1px #C9D43A}}
+.stack{display:flex;height:44px;border-radius:10px;overflow:hidden;margin:4px 0 12px}
+.stack div{display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;transition:flex-grow .5s ease;min-width:0;overflow:hidden;white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.c1{background:var(--lime);color:#1C1C1A}.c2{background:var(--teal);color:#0E2A31}.c3{background:var(--violet);color:#24123F}.c4{background:#1C1C1A;color:#F3F3EF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .c4{background:#55554E}}
+:root[data-theme="dark"] .c4{background:#55554E}
+.big{font-family:var(--display);font-size:40px;line-height:1;margin:0}
+.callout{background:#1C1C1A;color:#F3F3EF;border-radius:14px;padding:22px}
+.callout h3{color:var(--lime);font-family:var(--display);font-weight:800;font-size:20px;margin:0 0 8px}
+.callout p{margin:0;color:#D5D5CD}
+.chartbox{overflow-x:auto}
+svg text{font-family:var(--body)}
+footer{margin:56px 0 40px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:6px 10px;font:500 13px var(--body);cursor:pointer}
+@media (max-width:900px){.verdicts{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr}.g21{grid-template-columns:1fr}}
+@media (max-width:620px){.g2,.g3{grid-template-columns:1fr}.verdicts{grid-template-columns:1fr 1fr;margin-top:16px}.hero{padding-bottom:24px}}
+@media (prefers-reduced-motion:reduce){.fill,.stack div{transition:none}}
+
+.back{display:inline-block;color:#BDBDB4;font-size:14px;text-decoration:none;margin-bottom:18px}.back:hover{color:#F3F3EF}.back:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+</style>
+</head>
+<body>
+<header class="hero">
+ <div class="wrap">
+  <a class="back" href="./">← Todas las encuestas</a>
+  <div class="brand"><i aria-hidden="true"></i>Athletify</div>
+  <h1 id="h1">Lo que 1266 atletas nos dijeron</h1>
+  <p class="sub">Resultados de la encuesta de validación con atletas de Ecuador, julio de 2026. Elige un nivel competitivo para ver cómo cambian las respuestas.</p>
+  <div class="seg" role="group" aria-label="Filtrar por nivel competitivo">
+   <button type="button" data-s="Todos" aria-pressed="true">Todos</button>
+   <button type="button" data-s="Amateur" aria-pressed="false">Amateur</button>
+   <button type="button" data-s="Semiprofesional" aria-pressed="false">Semiprofesional</button>
+   <button type="button" data-s="Profesional" aria-pressed="false">Profesional</button>
+  </div>
+  <div class="seg-note" id="segnote"></div>
+ </div>
+</header>
+<main class="wrap">
+ <div class="verdicts" id="verdicts"></div>
+
+ <section class="ch">
+  <span class="tag">Atleta</span>
+  <h2>Quiénes respondieron</h2>
+  <p class="lead">Perfil deportivo y competitivo de quienes completaron la encuesta.</p>
+  <div class="grid g21">
+   <div class="card"><h3>Deporte principal</h3><p class="q">Respuestas abiertas agrupadas por disciplina</p><div class="bars" id="sports"></div></div>
+   <div class="grid">
+    <div class="card"><h3>Nivel competitivo</h3><p class="q">¿Cuál describe mejor tu nivel actual?</p><div id="level"></div></div>
+    <div class="card"><h3>Género</h3><p class="q">Sin contar «Prefiero no decir»</p><div id="gender"></div></div>
+   </div>
+  </div>
+  <div class="grid g3" style="margin-top:14px">
+   <div class="card"><h3>Edad</h3><p class="q">Rangos de edad</p><div class="bars" id="ages"></div></div>
+   <div class="card"><h3>Compite actualmente</h3><p class="q">¿Participas en competencias?</p><div id="compite"></div></div>
+   <div class="card"><h3>Afiliación a federación</h3><p class="q">¿Estás afiliado a una federación oficial?</p><div id="fed"></div></div>
+  </div>
+ </section>
+
+ <section class="ch">
+  <span class="tag dark">Problema</span>
+  <h2>Conseguir apoyo económico es la barrera más común</h2>
+  <p class="lead">¿Tienes dificultad para conseguir patrocinadores o financiamiento?</p>
+  <div class="grid g21">
+   <div class="card"><div id="patro"></div></div>
+   <div class="callout" id="patroCall"></div>
+  </div>
+ </section>
+
+ <section class="ch">
+  <span class="tag">Modelo</span>
+  <h2>Cómo reciben el modelo de representación de Athletify</h2>
+  <p class="lead">Disposición a firmar, a ceder derechos de imagen y a compartir ingresos futuros, y lo que más les preocupa.</p>
+  <div class="grid g2">
+   <div class="card"><h3>¿Firmarías un contrato bajo este modelo?</h3><p class="q">Pregunta 8</p><div id="contrato"></div></div>
+   <div class="card"><h3>¿Cederías derechos de imagen?</h3><p class="q">Pregunta 11</p><div id="imagen"></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+   <div class="card"><h3>Porcentaje de ingresos futuros que cederían</h3><p class="q">Pregunta 9 · resaltado el rango más elegido entre quienes dieron un porcentaje</p><div class="bars" id="pct"></div></div>
+   <div class="card"><h3>Lo que más les preocuparía</h3><p class="q">Pregunta 10 · podían marcar varias opciones</p><div class="bars" id="worries"></div></div>
+  </div>
+ </section>
+
+ <section class="ch">
+  <span class="tag dark">Oportunidad</span>
+  <h2>Qué valoran más allá del dinero, y cómo miden hoy su rendimiento</h2>
+  <p class="lead">Lo que Athletify puede ofrecer y el espacio que tiene el Sports Performance Lab.</p>
+  <div class="grid g2">
+   <div class="card"><h3>Lo más valioso además del dinero</h3><p class="q">Pregunta 12 · podían marcar varias opciones</p><div class="bars" id="value"></div></div>
+   <div class="card"><h3>Dispositivos que usan</h3><p class="q">Entre quienes dijeron usar algún dispositivo</p><div class="bars" id="devices"></div></div>
+  </div>
+  <div class="grid g21" style="margin-top:14px">
+   <div class="card"><h3>¿Te gustaría ser parte de Athletify?</h3><p class="q">Pregunta 13</p><div id="interes"></div></div>
+   <div class="callout" id="labCall"></div>
+  </div>
+ </section>
+
+ <section class="ch">
+  <span class="tag">Campaña</span>
+  <h2>Respuestas recibidas por día</h2>
+  <p class="lead" id="dailyLead"></p>
+  <div class="card chartbox"><div id="daily"></div></div>
+ </section>
+
+ <footer>
+  <span>Fuente: Encuesta Athletify – Atletas (Google Forms). Solo datos agregados; no incluye información personal de los encuestados.</span>
+  <button class="theme" type="button" id="themeBtn">Cambiar tema</button>
+ </footer>
+</main>
+<script>
+const D={"Todos":{"N":1266,"ages":[["Menor de 18",79],["18 a 24 años",360],["25 a 34 años",530],["35 a 44 años",245],["45 años o más",46]],"gender":[["Masculino",861],["Femenino",404]],"level":[["Amateur",563],["Semiprofesional",445],["Profesional",258]],"compite":[["Sí, regularmente",886],["Sí, ocasionalmente",263],["No por el momento",117]],"fed":[["Sí",353],["No",913]],"usaDisp":[["Sí",786],["No",475]],"patro":[["Sí",939],["A veces",273],["No",54]],"contrato":[["Sí",715],["Dependería de las condiciones",542],["No",9]],"pct":[["Ninguno",24],["1-5%",159],["6-10%",239],["11-20%",128],["Más de 20%",40],["Dependería del monto",675]],"imagen":[["Sí",706],["Dependería de las condiciones",533],["No",27]],"interes":[["Sí, me interesa",1053],["Tal vez, quiero más información",211],["No por el momento",2]],"sports":[["Atletismo",221],["Triatlón",148],["Ciclismo",126],["Combate",122],["Trail running",110],["CrossFit",85],["Fisicoculturismo",71],["Pesas y powerlifting",55],["Otros",328]],"devices":[["Reloj GPS o smartwatch",566],["App del celular",120],["Ciclocomputador o potenciómetro",75],["Banda de frecuencia cardíaca",64],["Equipos de laboratorio o gimnasio",34],["Anillo inteligente",9]],"worries":[["Nada me preocupa",517],["Seguridad de mis datos",321],["Perder control de mi carrera",320],["Compartir parte de mis ingresos",158],["Que mi federación o club no lo permita",132],["Otro",140]],"value":[["Visibilidad y marca personal",917],["Conexión con patrocinadores",868],["Acceso a competencias",712],["Mentoría deportiva",629],["Seguimiento de rendimiento",605]]},"Amateur":{"N":563,"ages":[["Menor de 18",20],["18 a 24 años",116],["25 a 34 años",253],["35 a 44 años",141],["45 años o más",29]],"gender":[["Masculino",361],["Femenino",201]],"level":[["Amateur",563],["Semiprofesional",0],["Profesional",0]],"compite":[["Sí, regularmente",338],["Sí, ocasionalmente",156],["No por el momento",69]],"fed":[["Sí",71],["No",492]],"usaDisp":[["Sí",378],["No",183]],"patro":[["Sí",454],["A veces",85],["No",24]],"contrato":[["Sí",322],["Dependería de las condiciones",235],["No",6]],"pct":[["Ninguno",12],["1-5%",80],["6-10%",116],["11-20%",53],["Más de 20%",14],["Dependería del monto",288]],"imagen":[["Sí",302],["Dependería de las condiciones",244],["No",17]],"interes":[["Sí, me interesa",449],["Tal vez, quiero más información",113],["No por el momento",1]],"sports":[["Atletismo",106],["Triatlón",95],["Ciclismo",63],["Trail running",57],["Fisicoculturismo",48],["Combate",38],["CrossFit",33],["Running",24],["Otros",99]],"devices":[["Reloj GPS o smartwatch",282],["App del celular",63],["Ciclocomputador o potenciómetro",43],["Banda de frecuencia cardíaca",27],["Equipos de laboratorio o gimnasio",9],["Anillo inteligente",2]],"worries":[["Nada me preocupa",221],["Seguridad de mis datos",155],["Perder control de mi carrera",147],["Compartir parte de mis ingresos",71],["Que mi federación o club no lo permita",51],["Otro",57]],"value":[["Visibilidad y marca personal",401],["Conexión con patrocinadores",359],["Acceso a competencias",324],["Mentoría deportiva",302],["Seguimiento de rendimiento",277]]},"Semiprofesional":{"N":445,"ages":[["Menor de 18",42],["18 a 24 años",147],["25 a 34 años",181],["35 a 44 años",64],["45 años o más",9]],"gender":[["Masculino",303],["Femenino",142]],"level":[["Amateur",0],["Semiprofesional",445],["Profesional",0]],"compite":[["Sí, regularmente",323],["Sí, ocasionalmente",89],["No por el momento",33]],"fed":[["Sí",124],["No",321]],"usaDisp":[["Sí",270],["No",173]],"patro":[["Sí",314],["A veces",113],["No",18]],"contrato":[["Sí",250],["Dependería de las condiciones",193],["No",2]],"pct":[["Ninguno",6],["1-5%",51],["6-10%",86],["11-20%",48],["Más de 20%",17],["Dependería del monto",236]],"imagen":[["Sí",259],["Dependería de las condiciones",181],["No",5]],"interes":[["Sí, me interesa",384],["Tal vez, quiero más información",61],["No por el momento",0]],"sports":[["Atletismo",77],["Combate",47],["Trail running",46],["Ciclismo",44],["Triatlón",42],["CrossFit",31],["Pesas y powerlifting",29],["Natación",20],["Otros",109]],"devices":[["Reloj GPS o smartwatch",185],["App del celular",45],["Ciclocomputador o potenciómetro",26],["Banda de frecuencia cardíaca",26],["Equipos de laboratorio o gimnasio",16],["Anillo inteligente",3]],"worries":[["Nada me preocupa",184],["Seguridad de mis datos",104],["Perder control de mi carrera",111],["Compartir parte de mis ingresos",58],["Que mi federación o club no lo permita",44],["Otro",52]],"value":[["Visibilidad y marca personal",327],["Conexión con patrocinadores",315],["Acceso a competencias",246],["Mentoría deportiva",219],["Seguimiento de rendimiento",208]]},"Profesional":{"N":258,"ages":[["Menor de 18",17],["18 a 24 años",97],["25 a 34 años",96],["35 a 44 años",40],["45 años o más",8]],"gender":[["Masculino",197],["Femenino",61]],"level":[["Amateur",0],["Semiprofesional",0],["Profesional",258]],"compite":[["Sí, regularmente",225],["Sí, ocasionalmente",18],["No por el momento",15]],"fed":[["Sí",158],["No",100]],"usaDisp":[["Sí",138],["No",119]],"patro":[["Sí",171],["A veces",75],["No",12]],"contrato":[["Sí",143],["Dependería de las condiciones",114],["No",1]],"pct":[["Ninguno",6],["1-5%",28],["6-10%",37],["11-20%",27],["Más de 20%",9],["Dependería del monto",151]],"imagen":[["Sí",145],["Dependería de las condiciones",108],["No",5]],"interes":[["Sí, me interesa",220],["Tal vez, quiero más información",37],["No por el momento",1]],"sports":[["Atletismo",38],["Combate",37],["CrossFit",21],["Ciclismo",19],["Patinaje",19],["Natación",18],["Fútbol",12],["Triatlón",11],["Otros",83]],"devices":[["Reloj GPS o smartwatch",99],["App del celular",12],["Ciclocomputador o potenciómetro",6],["Banda de frecuencia cardíaca",11],["Equipos de laboratorio o gimnasio",9],["Anillo inteligente",4]],"worries":[["Nada me preocupa",112],["Seguridad de mis datos",62],["Perder control de mi carrera",62],["Compartir parte de mis ingresos",29],["Que mi federación o club no lo permita",37],["Otro",31]],"value":[["Visibilidad y marca personal",189],["Conexión con patrocinadores",194],["Acceso a competencias",142],["Mentoría deportiva",108],["Seguimiento de rendimiento",120]]},"_daily":[["2026-07-07",1],["2026-07-08",16],["2026-07-09",4],["2026-07-10",39],["2026-07-11",170],["2026-07-12",309],["2026-07-13",234],["2026-07-14",151],["2026-07-15",102],["2026-07-16",124],["2026-07-17",52],["2026-07-18",19],["2026-07-19",14],["2026-07-20",16],["2026-07-21",6],["2026-07-22",1],["2026-07-23",1],["2026-07-24",2],["2026-07-25",1],["2026-07-26",1],["2026-07-27",1],["2026-07-30",1],["2026-07-31",1]]};
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+const fmt=n=>n.toLocaleString('es-EC');
+const sum=a=>a.reduce((s,x)=>s+x[1],0);
+let seg='Todos';
+function bars(id,rows,{base,hi}={}){
+  const tot=base||sum(rows);const max=Math.max(...rows.filter(r=>r[0]!=='Otros').map(r=>r[1]),1);
+  document.getElementById(id).innerHTML=rows.map((r,i)=>`<div class="bar${hi===i?' hi':''}${r[0]==='Otros'?' other':''}"><div class="lab"><span>${r[0]}</span><em>${pct(r[1],tot)}%<small>${fmt(r[1])}</small></em></div><div class="track"><div class="fill" style="width:${Math.min(100,r[1]/max*100)}%"></div></div></div>`).join('');
+}
+function stack(id,rows,labels){
+  const tot=sum(rows);const cls=['c1','c2','c3','c4'];
+  const segs=rows.map((r,i)=>{const p=pct(r[1],tot);return `<div class="${cls[i]}" style="flex-grow:${r[1]}" title="${r[0]}: ${p}% (${fmt(r[1])})">${p>=7?p+'%':''}</div>`}).join('');
+  const leg=rows.map((r,i)=>`<span><i class="${cls[i]}"></i>${(labels&&labels[i])||r[0]} · ${pct(r[1],tot)}%</span>`).join('');
+  document.getElementById(id).innerHTML=`<div class="stack" role="img" aria-label="${rows.map(r=>r[0]+' '+pct(r[1],tot)+'%').join(', ')}">${segs}</div><div class="legend">${leg}</div>`;
+}
+function render(){
+  const d=D[seg];const N=d.N;const g=(arr,k)=>arr.find(x=>x[0]===k)[1];
+  document.getElementById('h1').textContent=`Lo que ${fmt(N)} atletas nos dijeron`;
+  document.getElementById('segnote').textContent=seg==='Todos'?'Mostrando a todos los encuestados.':`Mostrando solo atletas de nivel ${seg.toLowerCase()} (${fmt(N)} respuestas).`;
+  const interes=g(d.interes,'Sí, me interesa'), pS=g(d.patro,'Sí')+g(d.patro,'A veces'), firma=g(d.contrato,'Sí'), vis=d.value[0][1];
+  document.getElementById('verdicts').innerHTML=[
+   [pct(interes,N)+'%','quiere ser parte de Athletify'],
+   [pct(pS,N)+'%','tiene dificultad, siempre o a veces, para conseguir patrocinio'],
+   [pct(firma,N)+'%','firmaría el contrato de representación tal como está'],
+   [pct(vis,N)+'%','valora la visibilidad y su marca personal']
+  ].map(v=>`<div class="v"><b>${v[0]}</b><span>${v[1]}</span></div>`).join('');
+  bars('sports',d.sports,{base:N});
+  stack('level',d.level); stack('gender',d.gender);
+  bars('ages',d.ages,{base:N});
+  stack('compite',d.compite,['Regularmente','Ocasionalmente','No por ahora']);
+  stack('fed',d.fed);
+  stack('patro',d.patro);
+  document.getElementById('patroCall').innerHTML=`<h3>${pct(g(d.patro,'Sí'),N)}% lo vive siempre</h3><p>Solo ${pct(g(d.patro,'No'),N)}% dice no tener dificultad para financiarse. Es el problema central que Athletify resuelve.</p>`;
+  stack('contrato',d.contrato,['Sí','Depende de las condiciones','No']);
+  stack('imagen',d.imagen,['Sí','Depende de las condiciones','No']);
+  const pr=d.pct.slice(1,5);let mi=1+pr.indexOf(pr.reduce((a,b)=>b[1]>a[1]?b:a));
+  bars('pct',d.pct,{hi:mi});
+  bars('worries',d.worries,{base:N});
+  bars('value',d.value,{base:N,hi:0});
+  const usan=g(d.usaDisp,'Sí');
+  bars('devices',d.devices,{base:usan,hi:4});
+  stack('interes',d.interes,['Sí, me interesa','Tal vez, quiere más información','No por ahora']);
+  const lab=d.devices[4][1];
+  document.getElementById('labCall').innerHTML=`<h3>Espacio para el Performance Lab</h3><p>${pct(usan,N)}% mide su rendimiento con algún dispositivo, casi siempre un reloj GPS. Solo ${fmt(lab)} atletas (${pct(lab,N)}% del total) acceden a equipos de laboratorio como InBody, VALD o Catapult.</p>`;
+}
+function daily(){
+  const rows=D._daily;const W=1080,H=230,pl=36,pb=40,pt=14;const max=Math.max(...rows.map(r=>r[1]));const bw=(W-pl)/rows.length;
+  const step=100;let grid='';for(let v=0;v<=max;v+=step){const y=H-pb-(v/max)*(H-pb-pt);grid+=`<line x1="${pl}" x2="${W}" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="${pl-6}" y="${y+4}" text-anchor="end" font-size="11" fill="var(--muted)">${v}</text>`}
+  const peak=rows.reduce((a,b)=>b[1]>a[1]?b:a);
+  const b=rows.map((r,i)=>{const h=(r[1]/max)*(H-pb-pt);const x=pl+i*bw+bw*.18;const y=H-pb-h;const dd=r[0].slice(8)+'/'+r[0].slice(5,7);const isP=r===peak;
+    return `<rect x="${x}" y="${y}" width="${bw*.64}" height="${Math.max(h,1)}" rx="3" fill="${isP?'var(--lime)':'var(--ink)'}"><title>${dd}: ${r[1]} respuestas</title></rect>${isP?`<text x="${x+bw*.32}" y="${y-5}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">${r[1]}</text>`:''}<text x="${x+bw*.32}" y="${H-pb+16}" text-anchor="middle" font-size="10.5" fill="var(--muted)">${dd}</text>`}).join('');
+  document.getElementById('daily').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;min-width:640px;height:auto;display:block" role="img" aria-label="Respuestas por día">${grid}${b}</svg>`;
+  const top3=rows.slice().sort((a,b)=>b[1]-a[1]).slice(0,3).reduce((s,r)=>s+r[1],0);
+  const pd=peak[0].slice(8)+'/'+peak[0].slice(5,7);
+  document.getElementById('dailyLead').textContent=`Del ${rows[0][0].slice(8)}/07 al ${rows.at(-1)[0].slice(8)}/07. El pico fue el ${pd} con ${peak[1]} respuestas, y los tres días más fuertes concentran el ${pct(top3,D.Todos.N)}% del total. Este gráfico siempre muestra a todos los encuestados.`;
+}
+document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{seg=b.dataset.s;document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));render()}));
+document.getElementById('themeBtn').addEventListener('click',()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark';try{localStorage.setItem('athl-theme',r.dataset.theme)}catch(e){}});
+try{const t=localStorage.getItem('athl-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
+render();daily();
+</script>
+</body>
+</html>
